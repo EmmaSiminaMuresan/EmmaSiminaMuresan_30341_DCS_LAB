@@ -1,7 +1,6 @@
 /*
  * SerialTest.java
  */
-package lab.scd.net.serializare;
 
 /**
  * Class created by @author Mihai HULEA at Feb 23, 2005.
@@ -56,8 +55,8 @@ public class SerialTest extends Thread{
 }
 
 class Pers implements Serializable{
-  String nume;
-  //transient String nume;
+  //String nume;
+  transient String nume;
   int varsta;
 
   Pers(String n, int v){

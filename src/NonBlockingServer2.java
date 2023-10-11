@@ -4,7 +4,6 @@
  * TODO To change the template for this generated file go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-package lab.scd.net.neblocant1;
 
 import java.io.*;
 import java.nio.*;

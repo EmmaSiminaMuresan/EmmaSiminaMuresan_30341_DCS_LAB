@@ -10,7 +10,7 @@
  * 1. Modificati aplicatia client astfel incat aceasta sa trimita catre server mesaje
  * citite de la tastatura. 
  */
-package lab.scd.net.socket;
+
 import java.net.*;
 import java.io.*;
 
@@ -20,7 +20,7 @@ public class ClientSimplu {
     Socket socket=null;
     try {
       //creare obiect address care identifica adresa serverului
-      InetAddress server_address =InetAddress.getByName("localhost");
+      InetAddress server_address =InetAddress.getByName("10.132.67.51");
       //se putea utiliza varianta alternativa: InetAddress.getByName("127.0.0.1")
       
       socket = new Socket(server_address,1900);
