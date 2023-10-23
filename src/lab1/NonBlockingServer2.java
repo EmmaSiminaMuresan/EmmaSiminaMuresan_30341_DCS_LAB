@@ -1,4 +1,4 @@
-/*
+package lab1;/*
  * Created on Jan 13, 2007
  *
  * TODO To change the template for this generated file go to

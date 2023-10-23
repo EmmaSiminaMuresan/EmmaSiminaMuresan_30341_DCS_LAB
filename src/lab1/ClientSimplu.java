@@ -1,5 +1,5 @@
-/*
- * ClientSimplu.java
+package lab1;/*
+ * lab1.ClientSimplu.java
  */
 
 /**

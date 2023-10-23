@@ -1,5 +1,5 @@
-/*
- * SerialTest.java
+package lab1;/*
+ * lab1.SerialTest.java
  */
 
 /**

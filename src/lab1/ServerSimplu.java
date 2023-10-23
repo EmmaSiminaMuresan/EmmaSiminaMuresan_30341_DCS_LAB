@@ -1,5 +1,5 @@
-/*
- * ServerSimplu.java
+package lab1;/*
+ * lab1.ServerSimplu.java
  */
 
 /*
