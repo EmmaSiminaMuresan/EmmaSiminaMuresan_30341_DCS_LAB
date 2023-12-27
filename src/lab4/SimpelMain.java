@@ -11,26 +11,26 @@ public class SimpelMain {
     public static void main(String[] args) {
         Scenario scenario = Scenario.winterDay();
         Plant plant = new Plant(SIM_PERIOD, scenario);
-        HeaterTankControllerComponent tankController = new HeaterTankControllerComponent(plant, SIM_PERIOD);
+        HeaterTankControllerPI tankControllerPI = new HeaterTankControllerPI(plant, SIM_PERIOD);
         RoomTemperatureControllerComponent roomController = new RoomTemperatureControllerComponent(plant, SIM_PERIOD);
         roomController.start();
-        tankController.start();
+        tankControllerPI.start();
         plant.start();
         double waterRefTemp = 48.0;
         double roomTemperature = 24.0;
         for (int i = 0; i < scenario.getScenarioLength(); i++) {
-            tankController.setWaterRefTemp(waterRefTemp);
-            tankController.setTankWaterTemp(plant.getTankWaterTemperature());
+            tankControllerPI.setWaterRefTemp(waterRefTemp);
+            tankControllerPI.setTankWaterTemp(plant.getTankWaterTemperature());
             roomController.setInput(roomTemperature, plant.getRoomTemperature());
             try {Thread.sleep(10);
             } catch (InterruptedException e) {
 // TODO Auto-generated catch block
                 e.printStackTrace(); }
         }
-        tankController.stop();
+        tankControllerPI.stop();
         roomController.stop();
-        MainView windowTankController = FuzzyPVizualzer.visualize(tankController.getNet(),
-                tankController.getRecorder());
+        MainView windowTankController = FuzzyPVizualzer.visualize(tankControllerPI.getNet(),
+                tankControllerPI.getRecorder());
         MainView windowTermostat = FuzzyPVizualzer.visualize(roomController.getNet(), roomController.getRecorder());
         Plotter plotterTemperatureLog = new Plotter(plant.getTemeartureLogs());
         Plotter plotterCommandLog = new Plotter(plant.getCommandLogs());

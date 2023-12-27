@@ -32,6 +32,13 @@ public class HeaterTankControllerPI {
             + " [<NL,NL><NM,NM><ZR,ZR><PM,PM><PL,PL>]"//
             + " [<NM,NM><ZR,ZR><PM,PM><PL,PL><PL,PL>]"//
             + " [<ZR,ZR><PM,PM><PL,PL><PL,PL><PL,PL>]}";
+
+    String adder = String.join("\n", //
+            "{[<NL><NL><NL><NM><ZR>]", //
+            " [<NL><NL><NM><ZR><PM>]", //
+            " [<NL><NM><ZR><PM><PL>]", //
+            " [<NM><ZR><PM><PL><PL>]", //
+            " [<ZR><PM><PL><PL><PL>]}");
     private AsyncronRunnableExecutor execcutor;
     private FullRecorder rec;
     private FuzzyDriver tankWaterTemperatureDriver;
@@ -89,7 +96,7 @@ public class HeaterTankControllerPI {
 
 // transition t7 adder ???? ca t4???
         int w1=1,w2=1; // ???
-        int t7 = net.addTransition(0, parser.parseTwoXTwoTable(historyMerger)); ///???????
+        int t7 = net.addTransition(0, parser.parseTwoXOneTable(adder)); ///???????
         net.addArcFromPlaceToTransition(p4,t7,w1);
         net.addArcFromPlaceToTransition(p9,t7,w2);
 

@@ -12,7 +12,6 @@ import lab4.Plant;
 
 import java.util.HashMap;
 import java.util.Map;
-
 public class OutsideReferenceCalculator {
     static String reader = "" +
             "{[<ZR,NL><ZR,NM><ZR,ZR><ZR,PM><ZR,PL>]" +
@@ -29,7 +28,6 @@ public class OutsideReferenceCalculator {
     private FuzzyPetriNet net;
     private int p1OustideTemInp;
     private int t2Out;
-
     private int p1RefInp;
     private FuzzyDriver outsideTempDriver;
     private FuzzyDriver tankWaterTemeDriver;
@@ -48,7 +46,7 @@ public class OutsideReferenceCalculator {
 
         p1RefInp = net.addInputPlace();
 
-        int tr0Reader = net.addTransition(0, parser.parseTwoXTwoTable(reader)); /// ????
+        int tr0Reader = net.addTransition(0, parser.parseTwoXTwoTable(reader)); /// ????  corrrect
         net.addArcFromPlaceToTransition(p1RefInp,tr0Reader,1);
         net.addArcFromPlaceToTransition(p0,tr0Reader,1);
 
@@ -64,8 +62,9 @@ public class OutsideReferenceCalculator {
 
         // t2-exit
 
-        int tr2out = net.addOuputTransition(OneXOneTable.defaultTable());
-        net.addArcFromPlaceToTransition(p3,tr2out,1);
+        //int t2Out = net.addOuputTransition(parser.parseOneXOneTable(t2Table)); //shouldn't be defined again, use the same paramaeter from the attributes
+        t2Out = net.addOuputTransition(parser.parseOneXOneTable(t2Table));
+        net.addArcFromPlaceToTransition(p3,t2Out,1);
 
         outsideTempDriver = FuzzyDriver.createDriverFromMinMax(-30, 10);
         tankWaterTemeDriver = FuzzyDriver.createDriverFromMinMax(45, 68);
@@ -77,12 +76,13 @@ public class OutsideReferenceCalculator {
         execcutor = new AsyncronRunnableExecutor(net, simPeriod);
         execcutor.setRecorder(rec);
     }
-        public void start() {
-            (new Thread(execcutor)).start(); }
-        public void stop() { execcutor.stop(); }
-        public void setOutsideTemp(double waterRefTemp) {
-            Map<Integer, FuzzyToken> inps = new HashMap<Integer, FuzzyToken>();
-            inps.put(p1OustideTemInp, outsideTempDriver.fuzzifie(waterRefTemp));
-            execcutor.putTokenInInputPlace(inps); }
-        public FuzzyPetriNet getNet() { return net; } public FullRecorder getRecorder() { return rec; }
+    public void start() {
+        (new Thread(execcutor)).start(); }
+    public void stop() { execcutor.stop(); }
+    public void setOutsideTemp(double waterRefTemp) { //this method is responsible for the inputs you need to change p1 name here too
+        Map<Integer, FuzzyToken> inps = new HashMap<Integer, FuzzyToken>();
+        inps.put(p1RefInp, outsideTempDriver.fuzzifie(waterRefTemp)); //>>>>>>>>>>.changed here
+        execcutor.putTokenInInputPlace(inps); }
+    public FuzzyPetriNet getNet() { return net; } public FullRecorder getRecorder() { return rec; }
 }
+
